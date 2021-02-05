@@ -28,7 +28,7 @@ Computer vision object tracking learning notes
 基于回归判别模型的典型方法是相关滤波，其利用循环矩阵#通过快速傅里叶变换实现时域到频域的转换，大大提升了算法的速度。 相关滤波因速度优势受到了广泛关注，逐渐成为目标跟踪领域的主流框架。
 Henriques等人在MOSSE算法的基础上，提出CSK算法，也称为核相关滤波算法，其采用循环移位进行密集采样，并通过核函数将低维线性空间映射到高维空间，提高了相关滤波器的鲁棒性。随后的工作主要从特征选择、尺度估计、正则化等方面对该算法进行改进和提高。
 #### DLT
-![img](https://github.com/ChenJian-Jia/Tracking/blob/main/DLT.png)
+![img](https://github.com/ChenJian-Jia/Tracking/blob/main/DLT.png)  
 DLT是第一个把深度模型运用在单目标跟踪任务上的跟踪算法。它的主体思路如上图所示：
 (1) 先使用栈式降噪自编码器(stacked denoising autoencoder，SDAE)在Tiny Images dataset这样的大规模自然图像数据集上进行无监督的离线预训练来获得通用的物体表征能力。预训练的网络结构如上图(b)所示，一共堆叠了4个降噪自编码器, 降噪自编码器对输入加入噪声，通过重构出无噪声的原图来获得更鲁棒的特征表达能力。SDAE1024-2560-1024-512-256这样的瓶颈式结构设计也使获得的特征更加compact。
 (2) 之后的在线跟踪部分结构如上图(c)所示，取离线SDAE的encoding部分叠加sigmoid分类层组成了分类网络。此时的网络并没有获取对当前被跟踪物体的特定表达能力。此时利用第一帧获取正负样本，对分类网络进行fine-tune获得对当前跟踪目标和背景更有针对性的分类网络。在跟踪过程中，对当前帧采用粒子滤波(particle filter)的方式提取一批候选的patch(相当于detection中的proposal)，这些patch输入分类网络中，置信度最高的成为最终的预测目标。
