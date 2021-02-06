@@ -43,7 +43,7 @@ Denoising Autoencoder（降噪自动编码器）就是在Autoencoder的基础之
 ###### 互相关运算在目标跟踪
 互相关运算可以用来度量两个信号之间的相似性。  
 互相关运算让我们得以衡量 h与f的相似度，换句话说，互相关得到的响应图中每个像素的响应高低代表着每个位置相似度的高低。假设目标存在于新一帧图像f中的话，那么在h和f对得最齐的地方就应该是目标中心的位置了！
-![img1]()
+![img1](https://github.com/ChenJian-Jia/Tracking/blob/main/%E4%BA%92%E7%9B%B8%E5%85%B3%E5%AE%9A%E4%B9%89.png)
 #### DLT
 ![img](https://github.com/ChenJian-Jia/Tracking/blob/main/DLT.png)  
 DLT是第一个把深度模型运用在单目标跟踪任务上的跟踪算法。它的主体思路如上图所示：
